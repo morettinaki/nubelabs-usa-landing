@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-[#09090b] text-zinc-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nubelabs | Backend Operational Automations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- La fuente 'Outfit' replica a la perfección la tipografía de tu logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Inter', 'sans-serif'], 
+                        brand: ['Outfit', 'sans-serif'] // Fuente para títulos y logo
+                    },
+                    colors: { 
+                        brand: { 
+                            bg: '#09090b', 
+                            card: '#121214', 
+                            border: '#27272a', 
+                            accent: '#1D3BBE', // Azul corporativo exacto de tu logo
+                            glow: '#4361EE' 
+                        } 
+                    },
+                    animation: {
+                        'scroll': 'scroll 40s linear infinite',
+                    },
+                    keyframes: {
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel { background: rgba(18, 18, 20, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .text-gradient { background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Efecto de desvanecimiento para el carrusel de logos */
+        .mask-edges {
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-glow selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass-panel border-b-0">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- BRANDING NUBELABS -->
+                <div class="flex items-center gap-2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#1D3BBE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                    </svg>
+                    <span class="font-brand text-2xl font-medium tracking-tight text-white mt-1">
+                        nubelabs
+                    </span>
+                </div>
+
+                <div>
+                    <a href="#book" class="bg-white text-black hover:bg-zinc-200 px-6 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg shadow-white/10">
+                        See if you qualify
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-16 md:pt-48 md:pb-24 flex flex-col items-center justify-center border-b border-white/5">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-accent/20 rounded-full blur-[150px] pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center relative z-10">
+            <h1 class="font-brand text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1]">
+                We turn administrative bottlenecks <br class="hidden md:block" />
+                into <span class="text-brand-glow pr-2">scalable margin.</span>
+            </h1>
+            <p class="text-lg text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                A well-documented process automated is highly valuable. A poorly understood process automated is expensive chaos. We map your operations, automate your client journey end-to-end, and give you the hours back.
+            </p>
+            <a href="#book" class="inline-block bg-brand-accent hover:bg-brand-glow text-white px-8 py-4 rounded-full text-base font-semibold transition-all shadow-[0_0_20px_rgba(29,59,190,0.4)]">
+                Book Your Free Ops Audit
+            </a>
+        </div>
+    </section>
+
+    <!-- Infinite Marquee (Social Proof) -->
+    <div class="w-full bg-[#09090b] py-8 border-b border-white/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto mask-edges relative">
+            <div class="flex w-max animate-scroll items-center">
+                <!-- Set 1 -->
+                <div class="flex items-center gap-12 px-6 opacity-40 font-brand text-xl tracking-widest font-semibold uppercase whitespace-nowrap">
+                    <span>Novabucal</span>
+                    <span class="text-brand-accent">•</span>
+                    <span>LolyGrafic CA.</span>
+                    <span class="text-brand-accent">•</span>
+                    <span>Nexus Agency</span>
+                    <span class="text-brand-accent">•</span>
+                    <span>Pleno Madrid</span>
+                    <span class="text-brand-accent">•</span>
+                    <span>Maillard SB</span>
+                    <span class="text-brand-accent">•</span>
+                    <span>Jarvis Group</span>
+                    <span class="text-brand-accent">•</span>
+                </div>
+                <!-- Set 2 (Duplicate for seamless loop) -->
+                <div class="flex items-center gap-12 px-6 opacity-40 font-brand text-xl tracking-widest font-semibold uppercase whitespace-nowrap">
+                    <span>Novabucal</span>
+                    <span class="text-brand-accent">•</span>
+                    <span>LolyGrafic CA.</span>
+                    <span class="text-brand-accent">•</span>
+                    <span>Nexus Agency</span>
+                    <span class="text-brand-accent">•</span>
+                    <span>Pleno Madrid</span>
+                    <span class="text-brand-accent">•</span>
+                    <span>Maillard SB</span>
+                    <span class="text-brand-accent">•</span>
+                    <span>Jarvis Group</span>
+                    <span class="text-brand-accent">•</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Proof (Metrics from Case Study) -->
+    <section class="py-24 bg-brand-card/30 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-xs font-bold tracking-widest text-brand-glow uppercase mb-3">The Proof</h2>
+                <h3 class="font-brand text-3xl md:text-5xl font-bold text-gradient mb-6">From paperwork to performance.</h3>
+                <p class="text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+                    This is how a multi-location group completely eliminated manual handoffs across their entire client journey.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="glass-panel p-8 rounded-2xl border-t border-t-white/10 text-center shadow-xl">
+                    <span class="block font-brand text-4xl font-semibold text-white mb-2">21h+</span>
+                    <span class="text-sm text-zinc-400">Recovered per week / location</span>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl border-t border-t-brand-glow/50 text-center shadow-[0_0_30px_rgba(67,97,238,0.1)]">
+                    <span class="block font-brand text-4xl font-semibold text-brand-glow mb-2">+19%</span>
+                    <span class="text-sm text-zinc-400">Profitability increase</span>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl border-t border-t-white/10 text-center shadow-xl">
+                    <span class="block font-brand text-4xl font-semibold text-white mb-2">-36%</span>
+                    <span class="text-sm text-zinc-400">Drop in manual errors</span>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl border-t border-t-white/10 text-center shadow-xl">
+                    <span class="block font-brand text-4xl font-semibold text-white mb-2">314</span>
+                    <span class="text-sm text-zinc-400">Services mapped & integrated</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Slippery Slide (Vertical Timeline Journey) -->
+    <section class="py-24 border-t border-white/5 relative bg-[#09090b]">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <div class="mb-16 text-center">
+                <h3 class="font-brand text-3xl md:text-5xl font-bold mb-4">The Automated Journey</h3>
+                <p class="text-zinc-400 text-lg max-w-3xl mx-auto leading-relaxed">
+                    See exactly how our infrastructure removes humans from repetitive tasks. Below is a real example of our deployment for a dental clinic group—one of the most complex operational environments with over 300 different services mapped.
+                </p>
+            </div>
+
+            <div class="relative border-l-2 border-white/10 ml-4 md:ml-0 md:pl-10 space-y-16">
+                
+                <!-- Phase 1 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="absolute w-8 h-8 rounded-full bg-[#09090b] border-4 border-brand-accent left-[-42px] md:left-[-58px] top-0 flex items-center justify-center"></div>
+                    <div class="glass-panel p-8 md:p-10 rounded-3xl transition-transform hover:-translate-y-1 duration-300">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-brand-glow/10 text-brand-glow text-xs font-bold uppercase tracking-widest mb-4">Phase 1</div>
+                        <h4 class="font-brand text-2xl font-bold mb-3">AI Booking & WhatsApp Routing</h4>
+                        <p class="text-zinc-300 leading-relaxed mb-5">
+                            The AI assistant receives the inbound message via WhatsApp. It identifies if the client is new or existing, understands natural language, and routes them to the correct professional based on the stated need.
+                        </p>
+                        <ul class="space-y-2 text-sm text-zinc-400">
+                            <li><strong class="text-zinc-200">Action:</strong> Checks real-time availability across calendars.</li>
+                            <li><strong class="text-zinc-200">Action:</strong> Books appointment and syncs instantly.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="absolute w-8 h-8 rounded-full bg-[#09090b] border-4 border-white/20 left-[-42px] md:left-[-58px] top-0"></div>
+                    <div class="glass-panel p-8 md:p-10 rounded-3xl transition-transform hover:-translate-y-1 duration-300">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 text-white text-xs font-bold uppercase tracking-widest mb-4">Phase 2</div>
+                        <h4 class="font-brand text-2xl font-bold mb-3">Digital Intake & Pre-Consultation</h4>
+                        <p class="text-zinc-300 leading-relaxed mb-5">
+                            Automated multi-step reminders fire via WhatsApp. Upon arrival, the client completes a secure digital form on their phone or tablet that pre-fills known data.
+                        </p>
+                        <ul class="space-y-2 text-sm text-zinc-400">
+                            <li><strong class="text-zinc-200">Action:</strong> Captures history and consent forms.</li>
+                            <li><strong class="text-zinc-200">Result:</strong> Data flows directly into the CRM automatically.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="absolute w-8 h-8 rounded-full bg-[#09090b] border-4 border-white/20 left-[-42px] md:left-[-58px] top-0"></div>
+                    <div class="glass-panel p-8 md:p-10 rounded-3xl transition-transform hover:-translate-y-1 duration-300">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 text-white text-xs font-bold uppercase tracking-widest mb-4">Phase 3</div>
+                        <h4 class="font-brand text-2xl font-bold mb-3">Medical-Grade Audio Transcription</h4>
+                        <p class="text-zinc-300 leading-relaxed mb-5">
+                            The professional activates audio transcription and explains the findings. The AI listens, understands complex language, and maps it.
+                        </p>
+                        <ul class="space-y-2 text-sm text-zinc-400">
+                            <li><strong class="text-zinc-200">Action:</strong> Real-time transcription auto-fills CRM fields.</li>
+                            <li><strong class="text-zinc-200">Result:</strong> The team is freed from ALL manual typing.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="absolute w-8 h-8 rounded-full bg-[#09090b] border-4 border-white/20 left-[-42px] md:left-[-58px] top-0"></div>
+                    <div class="glass-panel p-8 md:p-10 rounded-3xl transition-transform hover:-translate-y-1 duration-300">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 text-white text-xs font-bold uppercase tracking-widest mb-4">Phase 4</div>
+                        <h4 class="font-brand text-2xl font-bold mb-3">Instant Quote Engine</h4>
+                        <p class="text-zinc-300 leading-relaxed mb-5">
+                            Immediately after the consultation, the system cross-references the transcribed treatment plan with the entire mapped price database.
+                        </p>
+                        <ul class="space-y-2 text-sm text-zinc-400">
+                            <li><strong class="text-zinc-200">Action:</strong> Generates a detailed PDF quote instantly.</li>
+                            <li><strong class="text-zinc-200">Result:</strong> Sent for 1-click approval via WhatsApp.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 5 (Highlight) -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="absolute w-8 h-8 rounded-full bg-brand-glow shadow-[0_0_15px_rgba(67,97,238,0.8)] border-4 border-[#09090b] left-[-42px] md:left-[-58px] top-0"></div>
+                    <div class="glass-panel p-8 md:p-10 rounded-3xl border border-brand-accent/30 bg-brand-accent/5 transition-transform hover:-translate-y-1 duration-300">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-brand-glow/20 text-brand-glow text-xs font-bold uppercase tracking-widest mb-4">Phase 5</div>
+                        <h4 class="font-brand text-2xl font-bold mb-3">Revenue Capture & Re-booking</h4>
+                        <p class="text-zinc-300 leading-relaxed mb-5">
+                            As the client moves to billing, the approved PDF is already on the reception screen. The sale happens naturally with full context provided by the AI.
+                        </p>
+                        <ul class="space-y-2 text-sm text-zinc-400">
+                            <li><strong class="text-zinc-200">Action:</strong> Payment processed and recorded in the CRM.</li>
+                            <li><strong class="text-white">Result:</strong> The cycle restarts natively. Zero administrative drops.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- The Management Layer -->
+    <section class="py-24 border-t border-white/5 bg-[#0e0e11]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h3 class="font-brand text-3xl md:text-4xl font-bold mb-4">Decisions based on data, not gut feeling.</h3>
+                <p class="text-zinc-400">Automation handles the execution. Our management tools handle the strategy.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-panel p-10 rounded-3xl border border-white/5 relative overflow-hidden">
+                    <div class="w-12 h-12 rounded-full bg-brand-glow/10 flex items-center justify-center mb-6 text-brand-glow">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <h4 class="font-brand text-xl font-bold mb-3">Investment ROI Simulator</h4>
+                    <p class="text-zinc-400 leading-relaxed">
+                        A custom financial modeling tool. Input the cost of any new equipment and instantly see the break-even timeline, required client volume, and projected profitability. No more guessing.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-10 rounded-3xl border border-white/5 relative overflow-hidden">
+                    <div class="w-12 h-12 rounded-full bg-brand-glow/10 flex items-center justify-center mb-6 text-brand-glow">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h4 class="font-brand text-xl font-bold mb-3">KPI Dashboard & Bi-weekly Consulting</h4>
+                    <p class="text-zinc-400 leading-relaxed">
+                        Every automated interaction generates structured data. We track revenue per location, no-show rates, and pipeline health, and deliver a bi-weekly consulting report interpreting the data for you.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The ROI Guarantee (Risk Reversal) -->
+    <section class="py-12 bg-[#09090b] border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <div class="glass-panel p-8 rounded-2xl border-l-4 border-l-brand-glow bg-brand-glow/5">
+                <h4 class="font-brand text-xl font-bold text-white mb-3 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-brand-glow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    The ROI Lock-In Guarantee
+                </h4>
+                <p class="text-zinc-300 leading-relaxed text-sm">
+                    We map your exact return on investment before you sign a single document. We will calculate your break-even timeline based on hours saved and human errors eliminated. If the math doesn't unequivocally show you making your investment back, we will refuse to take your money.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing, Filtering & The 1% Rule -->
+    <section id="pricing" class="py-24 border-t border-white/5 relative overflow-hidden bg-[#0e0e11]">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8 relative z-10 text-center">
+            
+            <h2 class="font-brand text-3xl md:text-5xl font-bold mb-6">The 1% Rule.</h2>
+            <p class="text-xl text-zinc-300 max-w-2xl mx-auto leading-relaxed mb-16 font-medium">
+                We position our infrastructure as a core operational investment.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-8 text-left mb-16">
+                <!-- Who this is for -->
+                <div class="glass-panel p-8 rounded-3xl border border-white/10 relative">
+                    <div class="absolute -top-4 left-8 bg-green-500/20 text-green-400 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-green-500/30">
+                        Who this is for
+                    </div>
+                    <ul class="space-y-4 mt-4">
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 mt-1">✓</span>
+                            <span class="text-zinc-300 text-sm">Multi-location Wellness, Healthcare, Retail & B2C businesses.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 mt-1">✓</span>
+                            <span class="text-zinc-300 text-sm">Businesses with <strong>at least 2 locations</strong> (scale to 7+ easily).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-400 mt-1">✓</span>
+                            <span class="text-zinc-300 text-sm">Owners doing $1M+ in revenue wanting to scale margins without adding administrative headcount.</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Who this is NOT for -->
+                <div class="glass-panel p-8 rounded-3xl border border-white/5 relative opacity-70">
+                    <div class="absolute -top-4 left-8 bg-red-500/10 text-red-400 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-red-500/20">
+                        Who this is NOT for
+                    </div>
+                    <ul class="space-y-4 mt-4">
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-400 mt-1">✕</span>
+                            <span class="text-zinc-400 text-sm">Solopreneurs or single-location startups just beginning.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-400 mt-1">✕</span>
+                            <span class="text-zinc-400 text-sm">Businesses without a proven, existing client acquisition channel.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-red-400 mt-1">✕</span>
+                            <span class="text-zinc-400 text-sm">Owners looking for a $99/month software tool instead of a core operational infrastructure.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- The Rule Box -->
+            <div class="glass-panel p-8 md:p-12 rounded-3xl border border-brand-accent/20 bg-brand-accent/5 text-center shadow-[0_0_30px_rgba(29,59,190,0.1)]">
+                <h4 class="font-brand text-xl font-bold text-white mb-6">Our Qualification Baseline</h4>
+                <p class="text-white md:text-lg font-medium leading-relaxed max-w-3xl mx-auto italic">
+                    "If the total cost of our Service Setup plus the 12-Month Operations Retainer represents <span class="text-brand-glow font-bold not-italic">more than 1%</span> of your annual revenue, we are not the right fit for your business."
+                </p>
+                <div class="w-16 h-px bg-white/20 mx-auto my-6"></div>
+                <p class="text-zinc-400 text-sm max-w-xl mx-auto">
+                    This rule ensures that the ROI is mathematically undeniable from day one. You pay a tiny fraction.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking CTA (Cal.com) -->
+    <section id="book" class="py-24 border-t border-white/5 bg-[#09090b]">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+            <h2 class="font-brand text-3xl md:text-5xl font-bold mb-4">Calculate your Cost of Inaction.</h2>
+            <p class="text-zinc-400 mb-10 max-w-xl mx-auto">Book a 20-minute, zero-commitment deep dive into your backend operations.</p>
+            
+            <div class="w-full h-[600px] glass-panel rounded-2xl overflow-hidden border border-white/10">
+                <iframe src="https://cal.com/nubelabs-hey/30min" width="100%" height="100%" frameborder="0" class="w-full h-full bg-[#09090b]"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 border-t border-white/5 text-center text-sm text-zinc-600">
+        <p class="font-medium tracking-wide">A product by Nubelabs. &copy; 2026 Nubelabs. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
