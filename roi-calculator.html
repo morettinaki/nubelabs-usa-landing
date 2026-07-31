@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator — Nubelabs | Your Cost of Inaction</title>
+    <meta name="description" content="Calculate exactly how much your current admin overhead is costing you — and what you could recover with operational automation.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        brand: ['Outfit', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#09090b',
+                            card: '#121214',
+                            border: '#27272a',
+                            accent: '#1D3BBE',
+                            glow: '#4361EE'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background: #09090b; color: #fff; }
+        .glass-panel { background: rgba(18,18,20,0.7); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.05); }
+        .calc-slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:rgba(255,255,255,0.08);outline:none;cursor:pointer;}
+        .calc-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:#4361EE;cursor:pointer;box-shadow:0 0 10px rgba(67,97,238,0.5);border:2px solid #09090b;}
+        .calc-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#4361EE;cursor:pointer;border:2px solid #09090b;box-shadow:0 0 10px rgba(67,97,238,0.5);}
+        .plan-btn { transition: all 0.2s ease; }
+        .plan-btn.active { background: #1D3BBE; color: #fff; }
+        .plan-btn:not(.active) { color: #71717a; }
+        .plan-btn:not(.active):hover { color: #fff; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-glow selection:text-white min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass-panel border-b-0">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="/" class="flex items-center gap-2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#1D3BBE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                    </svg>
+                    <span class="font-brand text-2xl font-medium tracking-tight text-white mt-1">nubelabs</span>
+                </a>
+                <div class="flex items-center gap-6">
+                    <a href="/case-study.html" class="text-sm text-zinc-400 hover:text-white transition-colors hidden md:block">Case Study</a>
+                    <a href="/roi-calculator.html" class="text-sm text-white font-semibold hidden md:block">Cost of Inaction</a>
+                    <a href="https://cal.com/nubelabs-hey/30min" target="_blank" rel="noopener" class="bg-white text-black hover:bg-zinc-200 px-6 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg shadow-white/10">
+                        Book a Call
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="pt-36 pb-12 border-b border-white/5 text-center">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-brand-accent/15 rounded-full blur-[140px] pointer-events-none"></div>
+        <div class="max-w-3xl mx-auto px-6 relative z-10">
+            <p class="text-xs font-bold tracking-widest text-brand-glow uppercase mb-3">ROI Simulator</p>
+            <h1 class="font-brand text-4xl md:text-6xl font-bold mb-5 leading-tight">Your Cost of Inaction.<br class="hidden md:block"/> Calculated.</h1>
+            <p class="text-zinc-400 text-lg leading-relaxed max-w-xl mx-auto">Enter your numbers. See the 12-month projection update live. Built for discovery calls — share your screen and let the data do the talking.</p>
+        </div>
+    </section>
+
+    <!-- Plan Selector -->
+    <section class="py-10 border-b border-white/5 bg-[#0e0e11]">
+        <div class="max-w-2xl mx-auto px-6 text-center">
+            <p class="text-xs font-bold tracking-widest text-zinc-500 uppercase mb-5">Select a plan to model</p>
+            <div class="glass-panel p-1.5 rounded-full inline-flex gap-1 mb-4">
+                <button id="btn-core" class="plan-btn active font-brand text-sm font-bold px-6 py-3 rounded-full" onclick="selectPlan('core')">
+                    Core Optimizer
+                </button>
+                <button id="btn-engine" class="plan-btn font-brand text-sm font-bold px-6 py-3 rounded-full" onclick="selectPlan('engine')">
+                    Operations Engine
+                </button>
+            </div>
+            <p class="text-xs text-zinc-500" id="plan-detail">8 hours/week freed &nbsp;·&nbsp; $1,497/month &nbsp;·&nbsp; $15,000 one-time setup</p>
+        </div>
+    </section>
+
+    <!-- Calculator -->
+    <main class="py-16 bg-[#09090b]">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-5 gap-8 items-start">
+
+                <!-- INPUTS -->
+                <div class="md:col-span-2 glass-panel p-8 rounded-3xl border border-white/5">
+                    <p class="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-8">Your Operation</p>
+                    <div class="space-y-8">
+
+                        <div>
+                            <div class="flex justify-between items-baseline mb-2">
+                                <span class="text-sm text-zinc-400">Staff in admin tasks</span>
+                                <span class="font-brand text-2xl font-bold text-white tabular-nums" id="d-emp">0</span>
+                            </div>
+                            <input type="range" id="s-emp" min="0" max="20" value="0" class="calc-slider" oninput="document.getElementById('d-emp').textContent=this.value; calcROI()">
+                            <div class="flex justify-between text-xs text-zinc-600 mt-1"><span>0</span><span>20</span></div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-baseline mb-2">
+                                <span class="text-sm text-zinc-400">Admin hrs / week per person</span>
+                                <span class="font-brand text-2xl font-bold text-white tabular-nums" id="d-hrs">0</span>
+                            </div>
+                            <input type="range" id="s-hrs" min="0" max="40" value="0" class="calc-slider" oninput="document.getElementById('d-hrs').textContent=this.value; calcROI()">
+                            <div class="flex justify-between text-xs text-zinc-600 mt-1"><span>0h</span><span>40h</span></div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-baseline mb-2">
+                                <span class="text-sm text-zinc-400">Hourly cost (salary + overhead)</span>
+                                <span class="font-brand text-2xl font-bold text-white tabular-nums">$<span id="d-sal">0</span></span>
+                            </div>
+                            <input type="range" id="s-sal" min="0" max="100" value="0" class="calc-slider" oninput="document.getElementById('d-sal').textContent=this.value; calcROI()">
+                            <div class="flex justify-between text-xs text-zinc-600 mt-1"><span>$0</span><span>$100</span></div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-baseline mb-2">
+                                <span class="text-sm text-zinc-400">Avg revenue / client visit</span>
+                                <span class="font-brand text-2xl font-bold text-white tabular-nums">$<span id="d-tkt">0</span></span>
+                            </div>
+                            <input type="range" id="s-tkt" min="0" max="5000" step="50" value="0" class="calc-slider" oninput="document.getElementById('d-tkt').textContent=this.value; calcROI()">
+                            <div class="flex justify-between text-xs text-zinc-600 mt-1"><span>$0</span><span>$5,000</span></div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-baseline mb-2">
+                                <span class="text-sm text-zinc-400 leading-tight">New clients/week you could take<br>with recovered time</span>
+                                <span class="font-brand text-2xl font-bold text-white tabular-nums" id="d-cli">0</span>
+                            </div>
+                            <input type="range" id="s-cli" min="0" max="20" value="0" class="calc-slider" oninput="document.getElementById('d-cli').textContent=this.value; calcROI()">
+                            <div class="flex justify-between text-xs text-zinc-600 mt-1"><span>0</span><span>20</span></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- RESULTS -->
+                <div class="md:col-span-3 flex flex-col gap-5">
+
+                    <!-- Metric cards -->
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="glass-panel p-5 rounded-2xl text-center border border-red-500/20">
+                            <p class="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2 leading-tight">Annual<br>Bleeding</p>
+                            <p class="font-brand text-xl md:text-2xl font-bold text-red-400 tabular-nums" id="m-bleed">—</p>
+                        </div>
+                        <div class="glass-panel p-5 rounded-2xl text-center border border-emerald-500/20">
+                            <p class="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2 leading-tight">Year 1<br>Net ROI</p>
+                            <p class="font-brand text-xl md:text-2xl font-bold text-emerald-400 tabular-nums" id="m-roi">—</p>
+                        </div>
+                        <div class="glass-panel p-5 rounded-2xl text-center border border-brand-glow/25">
+                            <p class="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-2 leading-tight">Break-<br>even</p>
+                            <p class="font-brand text-xl md:text-2xl font-bold text-brand-glow tabular-nums" id="m-break">—</p>
+                        </div>
+                    </div>
+
+                    <!-- Chart -->
+                    <div class="glass-panel p-6 rounded-3xl border border-white/5">
+                        <div class="flex items-center justify-between mb-5">
+                            <p class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">12-Month Projection</p>
+                            <span class="text-xs text-zinc-600 italic">Move any slider to start</span>
+                        </div>
+                        <div style="position:relative; height:260px;">
+                            <canvas id="roi-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Notes + CTA -->
+                    <div class="glass-panel p-6 rounded-2xl border border-white/5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div class="flex-1">
+                            <p class="text-xs text-zinc-500 leading-relaxed">
+                                <span class="text-zinc-300 font-semibold">Conservative estimate.</span> Savings apply from Month 3 — implementation finishes within 60 days. Year 1 Net ROI already deducts the $15,000 setup + your monthly plan.
+                            </p>
+                        </div>
+                        <a href="https://cal.com/nubelabs-hey/30min" target="_blank" rel="noopener" class="flex-shrink-0 bg-brand-accent hover:bg-brand-glow text-white text-sm font-semibold px-6 py-3 rounded-full transition-all shadow-[0_0_20px_rgba(29,59,190,0.35)] whitespace-nowrap">
+                            Book the Audit →
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-white/5 text-center text-sm text-zinc-600">
+        <p class="font-medium tracking-wide">A product by Nubelabs. &copy; 2026 Nubelabs. All rights reserved.</p>
+    </footer>
+
+    <script>
+    (function(){
+        var fmt = new Intl.NumberFormat('en-US', {style:'currency', currency:'USD', maximumFractionDigits:0});
+        var roiChart = null;
+        var currentPlan = 'core';
+
+        var PLANS = {
+            core:   { hours: 8,  fee: 1497, label: '8 hours/week freed  ·  $1,497/month  ·  $15,000 one-time setup' },
+            engine: { hours: 16, fee: 2497, label: '16 hours/week freed  ·  $2,497/month  ·  $15,000 one-time setup' }
+        };
+
+        window.selectPlan = function(plan) {
+            currentPlan = plan;
+            document.getElementById('btn-core').classList.toggle('active', plan === 'core');
+            document.getElementById('btn-engine').classList.toggle('active', plan === 'engine');
+            document.getElementById('plan-detail').textContent = PLANS[plan].label;
+            calcROI();
+        };
+
+        window.calcROI = function() {
+            var emp  = +document.getElementById('s-emp').value  || 0;
+            var hrs  = +document.getElementById('s-hrs').value  || 0;
+            var sal  = +document.getElementById('s-sal').value  || 0;
+            var tkt  = +document.getElementById('s-tkt').value  || 0;
+            var cli  = +document.getElementById('s-cli').value  || 0;
+
+            var plan        = PLANS[currentPlan];
+            var setupFee    = 15000;
+            var monthlyFee  = plan.fee;
+            var hoursFreed  = plan.hours;
+
+            /* Operational bleeding (status quo cost) */
+            var annualAdminWaste = emp * hrs * sal * 52;
+
+            /* Savings from automation */
+            var laborSaving    = hoursFreed * sal * 52;
+            var newRevenue     = cli * tkt * 52;
+            var annualSaving   = laborSaving + newRevenue;
+            var monthlySaving  = annualSaving / 12;
+
+            /* Year 1: savings kick in month 3 (60-day implementation) */
+            var year1Savings   = monthlySaving * 10;  /* months 3–12 */
+            var year1Cost      = setupFee + (monthlyFee * 12);
+            var netROI         = year1Savings - year1Cost;
+
+            /* Break-even: first month where cumulative savings >= cumulative cost */
+            var breakEven = null;
+            for (var m = 1; m <= 36; m++) {
+                var cumSaving = monthlySaving * Math.max(0, m - 2);
+                var cumCost   = setupFee + (monthlyFee * m);
+                if (cumSaving >= cumCost) { breakEven = m; break; }
+            }
+
+            /* Update metric cards */
+            if (annualSaving === 0 && annualAdminWaste === 0) {
+                document.getElementById('m-bleed').textContent = '—';
+                document.getElementById('m-roi').textContent   = '—';
+                document.getElementById('m-break').textContent = '—';
+                drawChart(null, null);
+                return;
+            }
+
+            document.getElementById('m-bleed').textContent = fmt.format(annualAdminWaste);
+
+            var roiEl = document.getElementById('m-roi');
+            roiEl.textContent = (netROI >= 0 ? '+' : '') + fmt.format(netROI);
+            roiEl.className = 'font-brand text-xl md:text-2xl font-bold tabular-nums ' + (netROI >= 0 ? 'text-emerald-400' : 'text-red-400');
+
+            document.getElementById('m-break').textContent = breakEven
+                ? (breakEven <= 12 ? 'Month ' + breakEven : 'Year ' + Math.ceil(breakEven / 12))
+                : 'Year 3+';
+
+            /* Chart data */
+            var labels = ['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
+            var mBleed = annualAdminWaste / 12;
+
+            /* Red: cumulative bleeding (status quo) */
+            var loss = labels.map(function(_, i) { return -(mBleed * (i + 1)); });
+
+            /* Blue: cumulative operational savings (starts M3) — chart omits Nubelabs cost for clarity */
+            var gain = labels.map(function(_, i) { return monthlySaving * Math.max(0, i - 1); });
+
+            drawChart(labels, loss, gain);
+        };
+
+        function drawChart(labels, loss, gain) {
+            var ctx = document.getElementById('roi-chart');
+            if (!ctx) return;
+            if (roiChart) { roiChart.destroy(); roiChart = null; }
+
+            Chart.defaults.color       = '#52525b';
+            Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+
+            var zeros = labels ? labels.map(function(){ return 0; }) : [0,0,0,0,0,0,0,0,0,0,0,0];
+            var lbs   = labels || ['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
+
+            roiChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: lbs,
+                    datasets: [
+                        {
+                            label: 'Cost of inaction (status quo)',
+                            data: loss || zeros,
+                            borderColor: '#f87171',
+                            backgroundColor: 'rgba(248,113,113,0.06)',
+                            fill: true, tension: 0.4, borderWidth: 2, pointRadius: 0
+                        },
+                        {
+                            label: 'Recovery potential (with automation)',
+                            data: gain || zeros,
+                            borderColor: '#4361EE',
+                            backgroundColor: 'rgba(67,97,238,0.09)',
+                            fill: true, tension: 0.4, borderWidth: 2.5, pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 200 },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { usePointStyle:true, boxWidth:8, padding:14, color:'#71717a', font:{size:11} }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(c) {
+                                    var v = c.parsed.y;
+                                    return ' ' + fmt.format(Math.abs(v)) + (v < 0 ? ' (bleeding)' : ' (recovered)');
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color:'rgba(255,255,255,0.04)' },
+                            ticks: { color:'#3f3f46', font:{size:10} }
+                        },
+                        y: {
+                            grid: { color:'rgba(255,255,255,0.04)' },
+                            ticks: {
+                                color: '#3f3f46',
+                                font: { size:10 },
+                                callback: function(v) {
+                                    return (v < 0 ? '-$' : '$') + Math.abs(v/1000).toFixed(0) + 'k';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        /* Initial draw — flat lines at 0 */
+        document.addEventListener('DOMContentLoaded', function() {
+            drawChart(null, null);
+        });
+    })();
+    </script>
+</body>
+</html>
